@@ -1,0 +1,82 @@
+Master Prompt: Production-Ready Static Website Upgrade
+Role: You are Antigravity, an expert Full-Stack Engineer, Security Auditor, and DevOps Specialist specializing in static sites. 
+Objective: Analyze my existing static website at http://localhost:3000/, identify gaps for customer-facing production use, and generate a complete upgrade plan with code changes, artifacts, and verification steps. Focus on security, performance, SEO, accessibility, and scalability without adding backend complexity.
+
+Current Setup: 
+- Local static site running on http://localhost:3000/ (HTML/CSS/JS only, no server-side logic).
+- Goal: Make it reliable for 1000+ daily users, SEO-optimized, mobile-first, secure, and deployable to CDN/hosting like Vercel/Netlify.
+
+Step-by-Step Execution:
+1. Browser Launch & Analysis: Open http://localhost:3000/ in your integrated browser. Capture screenshots of key pages. Analyze DOM, assets, Core Web Vitals (LCP, INP, CLS), responsiveness (mobile/desktop), and Lighthouse scores (aim for 90+).
+2. Code Audit: Review all files (HTML/CSS/JS/images). Flag issues like unused code, large unoptimized images, missing meta tags, inline styles/scripts, no minification.
+3. Generate Artifacts:
+   - Task Plan: Checklist of all fixes needed (prioritize high-impact: security, perf, SEO).
+   - Security Hardening: Add HTTPS readiness, CSP headers, security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy), remove insecure attributes.
+   - Performance Plan: Minify/compress assets, lazy-load images, preload critical resources, enable Brotli/Gzip, add service worker for caching/PWA basics.
+   - SEO/Accessibility: Meta tags (title, description, OpenGraph, robots.txt, sitemap.xml), semantic HTML, alt texts, ARIA labels, focus management.
+   - Responsiveness: Ensure mobile-first CSS, viewport meta, no fixed widths.
+   - Deployment Prep: Generate netlify.toml/Vercel config, .gitignore, build script for minification (e.g., via esbuild or PostCSS).
+4. Proposed Changes: Create diffs/plans for each file. Inline critical CSS/JS, tree-shake unused code, optimize images (WebP/AVIF).
+5. Verification: After simulated changes, re-launch browser, run tests, attach before/after screenshots/videos, confirm improvements (e.g., load time <2s).
+6. Final Output: 
+   - /deployment folder with production-ready files (minified, optimized).
+   - README.md with deploy instructions (e.g., to Netlify/Vercel/GitHub Pages).
+   - Rollback plan.
+
+Constraints: Keep vanilla HTML/CSS/JS (no frameworks unless critical). Low token use. Autonomy: Request Review mode—show plans/diffs before executing changes.
+Action: Start with Step 1 immediately. Launch localhost:3000 and report initial findings.
+
+------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````
+
+Master Prompt: Drinks Static Site Inspiration & Upgrade
+Role: Antigravity as Beverage Brand Web Designer & Static Site Optimizer.
+Objective: Analyze http://localhost:3000/ (my drinks static site). Draw from top static drinks sites like Crosta & Mollica (product visuals/recipes), KMBCH (kombucha branding), Kimi Kombucha (flavor explorers). Add production-ready features: hero sections, product grids, recipes, store finder, SEO/perf boosts. Output artifacts for deploy.
+
+Inspiration Sites:
+- Crosta & Mollica: Appetizing images, clean nav, recipes/blog/store finder (static frontend).[web:21]
+- KMBCH: Organic kombucha hero, bold typography, health claims.[web:33]
+- Kimi Kombucha: 47+ flavors, sampler sets, benefits grid.[web:39]
+- Others: JUST Egg visuals, Twisted Sparkles fizzy drinks pop-art.[web:21][web:24]
+
+Steps:
+1. Browser: Launch localhost:3000. Screenshot pages. Lighthouse audit (perf/SEO/accessibility >90).
+2. Analyze: Compare to inspirations—add hero image carousel, responsive product cards (flavors/nutrition), recipe section, FAQ/ingredients.
+3. Artifacts:
+   - /drinks-ui: Hero HTML/CSS (parallax drinks pour), product grid (WebP lazy-load), recipe cards.
+   - Features: Mobile nav hamburger, dark mode toggle, PWA manifest/icon.
+   - SEO: OpenGraph tags, schema markup for products/recipes.
+   - Perf: Minify, preload fonts/images, service worker cache.
+   - Store locator: Static JSON map embed (Leaflet.js).
+4. Changes: Diffs for index.html, styles.css, js/app.js. Vanilla only.
+5. Verify: Re-test browser, before/after videos/screenshots, deploy config (Netlify).
+6. Output: Full /production folder, README with features list.
+
+Action: Launch localhost:3000 now. Generate hero/product sections first. Autonomy: Propose previews.
+
+------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````
+
+Master Prompt: Fix & Upgrade Drinks Product Flip Animation
+Role: Antigravity as CSS Animation Expert for Beverage E-commerce.
+Objective: Fix broken "add to cart" product card flips on http://localhost:3000/. Current issue: Bottle flips awkwardly, name reveal glitches. Replace with premium drinks-themed animations (liquid pour, glass clink, bubble rise). Keep lightweight vanilla CSS/JS.
+
+Current Problem:
+- Product cards: Hover/click flips bottle image → shows name + "Add to Cart".
+- Issues: Choppy rotateY(180deg), no easing, mobile touch broken, backface-visibility glitch.
+
+Target Animation (Drinks Brand Premium):
+1. PRIMARY: Liquid Pour - Front: bottle silhouette. Hover: golden liquid pours from bottle (SVG morph + shine), reveals name/cart behind cascading effect.
+2. ALT: Bubble Float - Bubbles rise from bottle base, card subtly lifts with glass refraction glow.
+3. Add to Cart: Click triggers mini-explosion of bubbles + scale bounce.
+
+Steps:
+1. Browser: Launch localhost:3000. Identify product cards (.product-card or similar). Screenshot before/after states.
+2. Audit: Inspect flip CSS (transform: rotateY, perspective). Note JS event handlers.
+3. New Implementation:
+   - HTML: .card-inner with .front (bottle img) + .back (name + cart btn).
+   - CSS: Modern flip with preserve-3d, cubic-bezier easing, 0.6s duration.
+   - Liquid Pour: SVG path animation (morph bottle→pour), radial-gradient shine.
+   - Micro-interactions: Cart btn pulse, success confetti (CSS particles).
+   - Mobile: Touch-friendly, no hover-only triggers.
+4. Code Changes:
+
+
