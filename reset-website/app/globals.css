@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-brand-red: #D9042B;
+  --color-brand-purple: #3D1059;
+  --color-brand-orange: #E07A5F;
+  --color-brand-dark: #0a0a0a;
+  --color-brand-light: #fdfbf7;
+}
+
+:root {
+  --background: #fdfbf7;
+  --foreground: #0a0a0a;
+  --card-bg: #ffffff;
+  --card-border: rgba(0,0,0,0.1);
+}
+
+[data-theme='dark'] {
+  --background: #111111;
+  --foreground: #fdfbf7;
+  --card-bg: #1a1a1a;
+  --card-border: rgba(255,255,255,0.1);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+    /* For dark mode adaptability */
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Bubble Animations */
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 0.6; }
+    50% { transform: translateY(-50px) scale(0.8); opacity: 0.8; }
+    100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+  }
+
+  .animate-bubble-1 { animation: floatUp 3s infinite ease-in; }
+  .animate-bubble-2 { animation: floatUp 4s infinite ease-in 1.2s; }
+  .animate-bubble-3 { animation: floatUp 3.5s infinite ease-in 2.5s; }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+    50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
+  }
+
+  @keyframes cartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-pop { animation: cartPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+}
+
+::selection {
+  background: var(--color-brand-red);
+  color: white;
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Whole Foods Market - Downtown",
+    "address": "123 Organic Lane, San Francisco, CA 94103",
+    "lat": 37.7845,
+    "lng": -122.401,
+    "stock": ["Spiced Jamun", "Cranberry"]
+  },
+  {
+    "id": 2,
+    "name": "Erewhon - Santa Monica",
+    "address": "456 Wellness Blvd, Santa Monica, CA 90401",
+    "lat": 34.0159,
+    "lng": -118.4912,
+    "stock": ["Coffee Peach", "Spiced Jamun", "Cranberry"]
+  },
+  {
+    "id": 3,
+    "name": "Brooklyn Fare",
+    "address": "789 Artisanal Ave, Brooklyn, NY 11201",
+    "lat": 40.6865,
+    "lng": -73.9856,
+    "stock": ["Cranberry", "Coffee Peach"]
+  },
+  {
+    "id": 4,
+    "name": "Foxtrot Market",
+    "address": "321 Trendy St, Chicago, IL 60605",
+    "lat": 41.8675,
+    "lng": -87.6243,
+    "stock": ["Spiced Jamun"]
+  }
+]
