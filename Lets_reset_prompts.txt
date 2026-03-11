@@ -79,4 +79,85 @@ Steps:
    - Mobile: Touch-friendly, no hover-only triggers.
 4. Code Changes:
 
+------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````
 
+
+Master Prompt: Add Full E-Commerce Backend to "Let's Reset" Kombucha Site
+Role: Antigravity as Full-Stack E-Commerce Architect (Next.js + Supabase Expert).
+Objective: Transform static http://localhost:3000/ "Let's Reset" kombucha site into full e-commerce: login/register, user management, product buy (cart/checkout), order DB, email confirmations. Match https://ybs.digital/ polished UX (agency-style: clean, fast, modern). Output deploy-ready code/artifacts.
+
+Current Site Analysis (from description):
+- Next.js 15 App Router, Tailwind v4, Static Export, features: Navbar/dark mode, hero carousel (3 flavors: Cranberry/Spiced Jamun/Coffee Peach), animated product grid (liquid pour/bubbles), recipes, Leaflet store locator, PWA/SEO.
+- Products: Single cans/bundles with nutrition, "Add to Cart" animations.
+- Folder: /deployment for static output.
+
+Target Flow (End-to-End E-Commerce like Shopify lite):
+1. /login & /register: Email/password + Google OAuth (Supabase Auth). Protected routes (/account, /cart).
+2. User Dashboard (/account): Order history, profile edit.
+3. Cart (/cart): Persist via localStorage + sync to Supabase on login. Update quantities/remove.
+4. Checkout (/checkout): Address form, Stripe payment (or Razorpay for India), create order.
+5. Backend: Supabase (free tier) for Auth/Users/Products/Orders. Edge functions for emails.
+6. Post-Buy: Confirmation page + email receipt (Resend/Supabase Edge + SendGrid).
+
+Detailed Functions to Add (Match ybs.digital clean design):
+- Auth: Login/register/logout, JWT sessions (NextAuth/Supabase SSR).
+- Products: DB table (id, name, price, image, stock, nutrition JSON). Fetch via API.
+- Cart: Add/update/remove, total calc. Guest cart → login merge.
+- Orders: DB (user_id, items JSON, total, status, address). Email on paid.
+- Admin (/admin protected): Add products, view orders (simple CRUD).
+- Emails: Confirmation (order details), invoice PDF attach.
+- Security: Row-level security, input validation.
+- UX: Animate cart badge counter, success confetti, loading spinners.
+
+Implementation Steps:
+1. Browser: Launch localhost:3000. Screenshot current products/cart flow.
+2. Setup Supabase: Generate project (template: e-commerce). Tables:
+
+
+------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````------------------````
+
+Master Prompt: Fix Cart "Continue Shopping" Redirect & Login Flow
+Role: Antigravity as Next.js Auth/UX Flow Specialist (Supabase + E-Commerce).
+Objective: Analyze & fix login/cart flow on http://localhost:3000/. Issue: After login (or cart guest view), "Continue Shopping" button goes to home instead of interactive product grid (/products or /shop) with add-to-cart animations. Ensure seamless: guest cart → login prompt → back to products with cart intact.
+
+Current Site Context ("Let's Reset" Kombucha):
+- Next.js 15 App Router, Supabase Auth/DB, Tailwind, animated products (liquid pour/bubbles on hover/add-cart).
+- Pages: /login, /cart (guest/localStorage + login merge), /products or / (product grid).
+- Flow Bug: Cart → "Login to Checkout" → login success → ? (wrong redirect). "Continue Shopping" from cart not hitting product grid.
+
+Target Fix (Match e-commerce std like Shopify):
+1. Smart Redirects: Use ?next=/cart or sessionStorage for post-login target.
+2. Cart Persistence: Guest cart (localStorage) → login → Supabase sync → products.
+3. Button: "Continue Shopping" → /products (grid with add-cart).
+4. UX Polish: Loading spinner on login, success toast, cart badge update.
+
+Steps:
+1. Browser: Launch localhost:3000. Test full flow:
+   - Guest: /products → add 2 items → /cart → "Login to Checkout" → /login.
+   - Login success → auto /cart or /products? Screenshot glitches.
+   - Logged: /cart → "Continue Shopping" → verify lands on product grid.
+2. Audit Code:
+   - Login page/actions: Check redirectTo or useRouter after supabase.auth.signIn.
+   - Cart component: "Continue Shopping" onClick=router.push('/products').
+   - Middleware/auth callback: Handle ?next= param (Supabase standard).
+3. Fixes:
+   - Login form: <form action={signIn({ redirectTo: '/products' })}>
+   - Or JS: const router = useRouter(); useEffect post-auth → router.push('/products').
+   - Cart: 
+     ```
+     <Button onClick={() => router.push('/products')}>Continue Shopping</Button>
+     ```
+   - SessionContext: onAuthStateChange → if fromCart, push('/products').
+   - Guest Merge: localStorage cart → Supabase on login.
+4. Enhancements:
+   - Toast: "Welcome back! Cart synced." (react-hot-toast).
+   - Mobile: Ensure touch-friendly.
+   - Perf: Prefetch /products link.
+5. Verify: Video end-to-end: guest add-cart → login → products → more adds → checkout.
+6. Artifacts:
+   - /fixes: Updated login/cart/page.tsx, actions.ts.
+   - Before/after flow diagram.
+   - Deploy notes (env for Supabase URL).
+
+Constraints: No new deps if possible. Vanilla Next.js patterns.
+Action: Launch localhost:3000 NOW. Go to /cart → inspect "Continue Shopping" handler. Fix login redirect first. Request review.
