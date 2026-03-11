@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id          String    @id
+  email       String    @unique
+  fullName    String?
+  firstName   String?
+  lastName    String?
+  displayName String?
+  phone       String?
+  avatarUrl   String?
+  cart        Json?     // For synchronizing the shopping cart
+  orders      Order[]
+  addresses   Address[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  image       String
+  stock       Int         @default(0)
+  nutrition   Json
+  isBundle    Boolean     @default(false)
+  categoryId  String?
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  userId       String
+  profile      Profile     @relation(fields: [userId], references: [id])
+  total        Float
+  status       String      @default("pending") // pending, paid, shipped, delivered, cancelled
+  items        OrderItem[]
+  address      String      // Can be a snapshot of the shipping address
+  orderNotes   String?
+  discountCode String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float // Price at which it was bought
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  profile   Profile  @relation(fields: [userId], references: [id])
+  street1   String
+  apt       String?
+  city      String
+  state     String
+  pin       String
+  country   String   @default("India")
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
